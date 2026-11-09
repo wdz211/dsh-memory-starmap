@@ -1,0 +1,46 @@
+{
+  "name": "dsh-memory-starmap",
+  "version": "0.1.0",
+  "description": "Force-directed 2D canvas star map of the machine's memory tracks, mounted in the DeepSeek Harness left sidebar.",
+  "license": "MIT",
+  "author": "wdz211",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wdz211/dsh-memory-starmap.git"
+  },
+  "homepage": "https://github.com/wdz211/dsh-memory-starmap#readme",
+  "bugs": {
+    "url": "https://github.com/wdz211/dsh-memory-starmap/issues"
+  },
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --check index.js && node --check client.js"
+  },
+  "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-ui-layout"
+      ]
+    }
+  }
+}

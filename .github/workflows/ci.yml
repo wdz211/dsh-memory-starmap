@@ -1,0 +1,20 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Syntax check
+        run: |
+          for f in $(find . -name '*.js' -o -name '*.mjs' | grep -v node_modules); do
+            node --check "$f" || exit 1
+          done
+      # No test suite: both halves only make sense inside a running Harness
+      # (host needs the webServer service, client needs the UI slot registry),
+      # so the package's own check is syntax only. Keep it green, not fake.
+      - name: Package self-check
+        run: node --check index.js && node --check client.js
